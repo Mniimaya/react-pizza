@@ -2,7 +2,7 @@ import './scss/app.scss';
 import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
-import ProductList from './components/ProductList';
+import ProductList from './components/Products/ProductList';
 
 
 
