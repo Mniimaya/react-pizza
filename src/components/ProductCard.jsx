@@ -6,11 +6,14 @@ function ProductCard({ title, price, image, sizes, types, key }) {
     const [activeSize, setActiveSize] = React.useState(0);
     return (
         <div className="pizza-block">
-            <img
-                className="pizza-block__image"
-                src={image}
-                alt="Pizza"
-            />
+            <div className="pizza-block__image-wrapper">
+                <img
+                    className="pizza-block__image"
+                    src={image}
+                    alt="Pizza"
+                />
+            </div>
+
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>

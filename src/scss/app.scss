@@ -8,12 +8,16 @@ body {
 }
 
 .wrapper {
-  width: calc(100vw - 100px);
+  width: calc(100vw - 20px);
   height: 100%;
   background-color: #fff;
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
+
+  @media (min-width: 768px) {
+    width: calc(100vw - 100px);
+  }
 }
 
 .content {
@@ -33,6 +37,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 30px;
   }
 }
 
