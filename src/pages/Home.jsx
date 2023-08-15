@@ -12,6 +12,7 @@ function Home() {
     const { categoryId, sort } = useSelector(state => state.filterSlice);
     const dispatch = useDispatch();
 
+    const categoriesItems = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true);
@@ -42,10 +43,10 @@ function Home() {
     return (
         <>
             <div className="content__top">
-                {!serach && <Categories value={categoryId} onClickCategory={onClickCategory} />}
+                {!serach && <Categories categoriesItems={categoriesItems} value={categoryId} onClickCategory={onClickCategory} />}
                 <Sort />
             </div>
-            <h2 className="content__title">Все пиццы</h2>
+            <h2 className="content__title">{`${categoriesItems[categoryId]} пиццы`}</h2>
             <ProductList value={items} statusLoading={isLoading} searchValue={searchValue} />
             {!categoryId && !serach && (<Pagination onChangePage={(number) => setCurrentPage(number)} countProducts={items} />)}
 
