@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ProductCard({ title, price, image, sizes, types, key }) {
+function ProductCard({ title, price, imageUrl, sizes, types }) {
     const typeName = ["тонкое", "традиционное"];
     const [activeType, setActiveType] = React.useState(0);
     const [activeSize, setActiveSize] = React.useState(0);
@@ -9,7 +9,7 @@ function ProductCard({ title, price, image, sizes, types, key }) {
             <div className="pizza-block__image-wrapper">
                 <img
                     className="pizza-block__image"
-                    src={image}
+                    src={imageUrl}
                     alt="Pizza"
                 />
             </div>

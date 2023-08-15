@@ -1,12 +1,38 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedSort } from '../redux/slises/filterSlice';
 
 function Sort() {
+    const list = [
+        {
+            name: "популярности",
+            sortProperty: "rating"
+        },
+        {
+            name: "возрастанию цены",
+            sortProperty: "-price"
+        },
+        {
+            name: "убыванию цены",
+            sortProperty: "price"
+        },
+        {
+            name: "алфавиту",
+            sortProperty: "-title"
+        }
+    ]
     const [isActiveSort, setIsActiveSort] = React.useState(false);
-    const [selected, setSelected] = React.useState(0);
-    const list = ["популярности", "цене", "алфавиту"]
     const handlerSelectedSort = (index) => {
-        setSelected(index);
+        onChangeSort(index);
         setIsActiveSort(false);
+    }
+
+    const dispatch = useDispatch();
+    const sort = useSelector(state => state.filterSlice.sort);
+
+
+    const onChangeSort = (obj) => {
+        dispatch(setSelectedSort(obj))
     }
     return (
         <div className="sort">
@@ -24,12 +50,12 @@ function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsActiveSort(!isActiveSort)}>{list[selected]}</span>
+                <span onClick={() => setIsActiveSort(!isActiveSort)}>{sort.name}</span>
             </div>
             {isActiveSort &&
                 (<div className="sort__popup">
                     <ul>
-                        {list.map((item, i) => <li onClick={() => handlerSelectedSort(i)} className={selected === i ? "active" : ""} key={i}>{item}</li>)}
+                        {list.map((obj, i) => <li onClick={() => handlerSelectedSort(obj)} className={sort.sortProperty === obj.sortProperty ? "active" : ""} key={i}>{obj.name}</li>)}
                     </ul>
                 </div>)
             }

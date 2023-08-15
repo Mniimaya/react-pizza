@@ -2,46 +2,23 @@ import React from 'react'
 import ProductCard from './ProductCard'
 import Skeleton from './Skeleton'
 
-function ProductList() {
-    const [items, setItems] = React.useState([])
-    const [isLoading, setIsLoading] = React.useState(true);
+function ProductList({ value, statusLoading, searchValue }) {
 
-    React.useEffect(() => {
-        fetch('https://64d08fddff953154bb79132d.mockapi.io/items')
-            .then((res) => {
-                return res.json()
-            })
-            .then((json) => {
-                setItems(json)
-                setIsLoading(false)
-            })
-    }, []);
-
+    const pizzas = value
+        .filter((obj) => {
+            if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+                return true;
+            }
+            return false;
+        }).map((obj) => <ProductCard {...obj} key={obj.id} />);
     return (
         <div className="content__items">
+
             {
-                isLoading ? [...new Array(6)].map(() => <Skeleton />) : items.map((obj) => (
-                    <ProductCard title={obj.title}
-                        price={obj.price}
-                        image={obj.imageUrl}
-                        sizes={obj.sizes}
-                        types={obj.types}
-                        key={obj.id}
-                    />
-                ))
+                pizzas.length > 0 ? (statusLoading ? [...new Array(6)].map(() => <Skeleton />) : pizzas) : <p className="information-text"><span>😕</span><br />Пицца не найдена</p>
             }
         </div>
     )
 }
-
-// {items.map((obj) => isLoading ? <Skeleton /> :
-//                 <ProductCard
-//                     title={obj.title}
-//                     price={obj.price}
-//                     image={obj.imageUrl}
-//                     sizes={obj.sizes}
-//                     types={obj.types}
-//                     key={obj.id}
-//                 />)}
 
 export default ProductList

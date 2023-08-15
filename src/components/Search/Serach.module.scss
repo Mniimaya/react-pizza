@@ -1,0 +1,31 @@
+.input {
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.label {
+  padding: 12px 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+
+  @media (min-width: 732px) {
+    margin-left: auto;
+  }
+}
+
+.crossIcon {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.crossSearch {
+  color: rgba(0, 0, 0, 0.3);
+}

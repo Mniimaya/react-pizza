@@ -2,6 +2,8 @@
 
 .sort {
   position: relative;
+  justify-self: end;
+  grid-column: 2/3;
   &__label {
     display: flex;
     align-items: center;

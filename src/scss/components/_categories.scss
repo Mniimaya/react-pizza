@@ -1,9 +1,9 @@
 @import '../variables';
 
 .categories {
+  overflow: auto;
   ul {
     display: flex;
-    flex-wrap: wrap;
     row-gap: 7px;
 
     li {
