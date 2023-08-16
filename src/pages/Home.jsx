@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../redux/slises/filterSlice';
+import axios from 'axios';
+
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import ProductList from '../components/Products/ProductList';
@@ -28,12 +30,9 @@ function Home() {
 
     React.useEffect(() => {
         setIsLoading(true);
-        fetch(`https://64d08fddff953154bb79132d.mockapi.io/items?${!serach ? "page=" + currentPage + "&" : ""}limit=4&${category}&sortBy=${sortBy}&order=${order}${serach}`)
-            .then((res) => {
-                return res.json()
-            })
-            .then((json) => {
-                setItems(json);
+        axios.get(`https://64d08fddff953154bb79132d.mockapi.io/items?${!serach ? "page=" + currentPage + "&" : ""}limit=4&${category}&sortBy=${sortBy}&order=${order}${serach}`)
+            .then(response => {
+                setItems(response.data);
                 setIsLoading(false);
             })
         window.scrollTo(0, 0);
