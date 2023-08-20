@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { clearProducts } from '../redux/slises/cartSlice'
-import ProductsBasketCard from '../components/Products/ProductsBasketCard'
+import { clearProducts } from '../redux/slises/cartSlice';
+import ProductsBasketCard from '../components/Products/ProductsBasketCard';
+import BasketEmpty from '../components/BasketEmpty';
 
 
 function Basket() {
@@ -22,7 +23,11 @@ function Basket() {
     }, 0)
 
     const addedProducts = useSelector(state => state.cartSlice.products);
+    if (!addedProducts.length) {
+        return <BasketEmpty />
+    }
     return (
+
         <div className="cart">
             <div className="cart__top">
                 <h2 className="content__title"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -15,7 +15,7 @@ function ProductList({ value, statusLoading, searchValue }) {
         <div className="content__items">
 
             {
-                pizzas.length > 0 ? (statusLoading ? [...new Array(6)].map(() => <Skeleton />) : pizzas) : <p className="information-text"><span>😕</span><br />Пицца не найдена</p>
+                pizzas.length > 0 ? (statusLoading ? [...new Array(6)].map((item, i) => <Skeleton key={i} />) : pizzas) : <p className="information-text"><span>😕</span><br />Пицца не найдена</p>
             }
         </div>
     )
