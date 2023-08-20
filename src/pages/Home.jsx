@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slises/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slises/filterSlice';
 import axios from 'axios';
+import qs from 'qs';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -11,14 +12,14 @@ import { SearchContext } from '../App';
 
 
 function Home() {
-    const { categoryId, sort } = useSelector(state => state.filterSlice);
     const dispatch = useDispatch();
+    const { categoryId, sort, currentPage } = useSelector(state => state.filterSlice);
+
 
     const categoriesItems = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true);
-    const [currentPage, setCurrentPage] = React.useState(1);
     const order = sort.sortProperty.includes("-", "") ? "asc" : "desc";
     const sortBy = sort.sortProperty.replace("-", "");
     const category = categoryId > 0 ? `category=${categoryId}` : "";
@@ -26,6 +27,10 @@ function Home() {
 
     const onClickCategory = (id) => {
         dispatch(setCategoryId(id))
+    }
+
+    const onChangePage = (number) => {
+        dispatch(setCurrentPage(number))
     }
 
     React.useEffect(() => {
@@ -47,7 +52,7 @@ function Home() {
             </div>
             <h2 className="content__title">{`${categoriesItems[categoryId]} пиццы`}</h2>
             <ProductList value={items} statusLoading={isLoading} searchValue={searchValue} />
-            {!categoryId && !serach && (<Pagination onChangePage={(number) => setCurrentPage(number)} countProducts={items} />)}
+            {!categoryId && !serach && (<Pagination onChangePage={onChangePage} countProducts={items} />)}
 
         </>
 

@@ -1,9 +1,27 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProduct } from '../../redux/slises/cartSlice'
 
-function ProductCard({ title, price, imageUrl, sizes, types }) {
+function ProductCard({ id, title, price, imageUrl, sizes, types }) {
     const typeName = ["тонкое", "традиционное"];
     const [activeType, setActiveType] = React.useState(0);
     const [activeSize, setActiveSize] = React.useState(0);
+    const dispatch = useDispatch()
+    const productItems = useSelector((state) => state.cartSlice.products.find(obj => obj.id === id))
+    const onClickAdd = () => {
+        const item = {
+            id,
+            title,
+            price,
+            imageUrl,
+            activeType: typeName[activeType],
+            activeSize
+        }
+
+        dispatch(addProduct(item));
+    }
+
+    const addedCount = productItems ? productItems.count : 0;
     return (
         <div className="pizza-block">
             <div className="pizza-block__image-wrapper">
@@ -24,8 +42,8 @@ function ProductCard({ title, price, imageUrl, sizes, types }) {
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">от {price} ₽</div>
-                <button className="button button--outline button--add">
+                <div className="pizza-block__price">{price} ₽</div>
+                <button className="button button--outline button--add" onClick={onClickAdd}>
                     <svg
                         width="12"
                         height="12"
@@ -39,7 +57,7 @@ function ProductCard({ title, price, imageUrl, sizes, types }) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>0</i>
+                    {addedCount > 0 && <i>{addedCount}</i>}
                 </button>
             </div>
         </div>
